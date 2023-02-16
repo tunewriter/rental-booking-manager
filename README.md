@@ -46,12 +46,9 @@ The code for the availability checker and the sorting can be found under _"Exten
 ### Status Color	
 Above each booking in row B, the cells can take on different colors, depending on temporal distance to the event:
 	
-* the end day is in the past &rarr; grey 
-
+* the end day is in the past &rarr; grey
 * start day is within 3 days &rarr; yellow
-
 * start day is tomorrow &rarr; orange
-
 * start date, end date or any date between is today &rarr; red
 ### Color Coding	
 The Delivery / Pick Up cells are coloroed yellow / green
