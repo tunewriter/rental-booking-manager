@@ -24,10 +24,6 @@ In our case we use Google Apps Script in combination with Google Sheets.
 3. Set a trigger for sort()-method _(on open)_ and a trigger for the avail()-method _(on edit)_
 4. Adjust the dates and the items for your use case
 
-### Setting Triggers
-
-![](/images/img5.png)
-![](/images/img6.png)
 
 ## How to use	
 ### New Entry	
@@ -75,3 +71,7 @@ You can add new items on the inventory sheet. Setting an unit price is optional 
 ![](/images/img2.png)
 ![](/images/img3.png)
 ![](/images/img4.png)
+### Setting Triggers
+
+![](/images/img5.png)
+![](/images/img6.png)
