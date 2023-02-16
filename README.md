@@ -1,10 +1,10 @@
 # Rental Booking Manager
-Customized booking manager for rental using Google Sheet and Google Apps Script / JavaScript
+Customized booking manager for rental using Google Sheets and Google Apps Script / JavaScript
 
 **Features**: 
 * Entering Bookings 
 * Total Cost Calculation
-* Inventory,
+* Inventory
 * Overview page
 * Availability calculator which provides the available amount of items at any day
 
@@ -12,6 +12,7 @@ Customized booking manager for rental using Google Sheet and Google Apps Script 
 Apps Script is a rapid application development platform that makes it fast and easy to create business applications _(using JavaScript)_ that integrate with G Suite.
 
 In our case we use Google Apps Script in combination with Google Sheets.
+![](/images/img1.png)
 
 ## Setup
 ### Get Started
@@ -20,8 +21,8 @@ In our case we use Google Apps Script in combination with Google Sheets.
 2. Adjust the dates and the items for your use case
 #### If you can not access the demo on Google Sheets:
 1. Import the _booking_manager.xlsx_ file to Google Sheets
-2. Go to _Extensions &rarr; Apps Script_ and copy-paste the Code.gs file
-3. Set a trigger for sort()-method _(on open)_ and a trigger for the avail()-method _(on edit)_
+2. Go to _Extensions &rarr; Apps Script_ and copy-paste the _Code.gs_ file
+3. Set a trigger for _sort()_ method _(on open)_ and a trigger for the _avail()_ method _(on edit)_
 4. Adjust the dates and the items for your use case
 
 
@@ -64,7 +65,6 @@ You can add new items on the inventory sheet. Setting an unit price is optional 
 	Setting the max quantity is necessary if you want to use the availability calculator on this item.
 
 ## Screenshots
-![](/images/img1.png)
 ![](/images/img2.png)
 ![](/images/img3.png)
 ![](/images/img4.png)
