@@ -16,11 +16,11 @@ In our case we use Google Apps Script in combination with Google Sheets.
 ## Setup
 ### Get Started
 #### If you can access the demo on Google Sheets:
-1. Click on "File &rarr; Make a copy"
+1. Click on _File &rarr; Make a copy_
 2. Adjust the dates and the items for your use case
 #### If you can not access the demo on Google Sheets:
-1. Import the "booking_manager.xlsx" file to Google Sheets
-2. Go to "Extensions &rarr; Apps Script" and copy-paste the Code.gs file
+1. Import the _booking_manager.xlsx_ file to Google Sheets
+2. Go to _Extensions &rarr; Apps Script_ and copy-paste the Code.gs file
 3. Set a trigger for sort()-method _(on open)_ and a trigger for the avail()-method _(on edit)_
 4. Adjust the dates and the items for your use case
 
@@ -56,7 +56,7 @@ Above each booking in row B, the cells can take on different colors, depending o
 ### Color Coding	
 The Delivery / Pick Up cells are coloroed yellow / green
 	Start and end date are colored orange if the date is tomorrow and red if the date is today
-	The "paid" cell is colored light green if at least the advance has been paid and dark green if the full amount has been paid. It's purple if more than the full amount has been paid.
+	The _paid_ cell is colored light green if at least the advance has been paid and dark green if the full amount has been paid. It's purple if more than the full amount has been paid.
 ### Pricing	
 Unit Prices can be set in the inventory sheet or can be overwritten in the booking sheet.
 	Item Prices and full prices get calculated automatically
