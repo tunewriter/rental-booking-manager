@@ -36,13 +36,13 @@ The entries are automatically sorted by the start date each time the spreadsheet
 The Availability Checker updates each time a cell is edited.
 	The Availability Checker will only include entries which have a start and an end date.
 	It doesn't include time so it considers the items for each day between (and including) start and end date as occupied.
-	As for now if you want to add an item to the availability calculator you have to add the item in the a dict in the code base. (Todo: It should be possible to add this without edit the codebase)
+	As for now if you want to add an item to the availability calculator you have to add the item in the a dict in the code base.
 ### Overview	
 The overview sheet is automatically filled in and updated.
 	
 ### Code	
-The code for the availability checker and the sorting can be found under _"Extensions &rarr; Apps Script"_.
-	If you can't open _"Apps Script"_, try login into your default Google account
+The code for the availability checker and the sorting can be found under _Extensions &rarr; Apps Script_.
+	If you can't open _Apps Script_, try login into your default Google account.
 ### Status Color	
 Above each booking in row B, the cells can take on different colors, depending on temporal distance to the event:
 	
@@ -51,7 +51,7 @@ Above each booking in row B, the cells can take on different colors, depending o
 * start day is tomorrow &rarr; orange
 * start date, end date or any date between is today &rarr; red
 ### Color Coding	
-The Delivery / Pick Up cells are coloroed yellow / green
+The Delivery / Pick Up cells are colored yellow / green
 	Start and end date are colored orange if the date is tomorrow and red if the date is today
 	The _paid_ cell is colored light green if at least the advance has been paid and dark green if the full amount has been paid. It's purple if more than the full amount has been paid.
 ### Pricing	
@@ -60,7 +60,7 @@ Unit Prices can be set in the inventory sheet or can be overwritten in the booki
 	In the overview sheet you can see the summed total price of the month split in delivery and pick up and also how much has been paid.
 ### Inventory	
 You can add new items on the inventory sheet. Setting an unit price is optional but helpful for automatical price calculation.
-	Be careful when changing the order since this could necessitate adaptions in the code base. (Todo: code shouldn't be dependent from the order of the inventory)
+	Be careful when changing the order since this could necessitate adaptions in the code base. 
 	Setting the max quantity is necessary if you want to use the availability calculator on this item.
 
 ## Screenshots
