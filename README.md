@@ -12,6 +12,7 @@ Customized booking manager for rental using Google Sheets and Google Apps Script
 Apps Script is a rapid application development platform that makes it fast and easy to create business applications _(using JavaScript)_ that integrate with G Suite.
 
 In our case we use Google Apps Script in combination with Google Sheets.
+
 ![](/images/img1.png)
 
 ## Setup
@@ -22,7 +23,7 @@ In our case we use Google Apps Script in combination with Google Sheets.
 #### If you can not access the demo on Google Sheets:
 1. Import the _booking_manager.xlsx_ file to Google Sheets
 2. Go to _Extensions &rarr; Apps Script_ and copy-paste the _Code.gs_ file
-3. Set a trigger for _sort()_ method _(on open)_ and a trigger for the _avail()_ method _(on edit)_
+3. Set a trigger for _sort()_ method _(on open)_ and a trigger for the _avail()_ and _refreshOverview()_ method _(on edit)_
 4. Adjust the dates and the items for your use case
 
 
@@ -38,8 +39,10 @@ The Availability Checker updates each time a cell is edited.
 	The Availability Checker will only include entries which have a start and an end date.
 	It doesn't include time so it considers the items for each day between (and including) start and end date as occupied.
 	As for now if you want to add an item to the availability calculator you have to add the item in the a dict in the code base.
+Drag-down menu to select specific month to get the availabilities from
 ### Overview	
 The overview sheet is automatically filled in and updated.
+Drag-down menu to select specific month to get an overview from
 	
 ### Code	
 The code for the availability checker and the sorting can be found under _Extensions &rarr; Apps Script_.

@@ -1,11 +1,13 @@
 // code for availability calculator and sorting method
+let ss = SpreadsheetApp.getActiveSpreadsheet();
 
 let av = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Availability")
-let month_current = av.getRange("A2").getValue()
-let mon = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(month_current)
+let month_current_av = av.getRange("A2").getValue()
 
 let av_range = av.getRange("B4:AG10")
-var range_mon = mon.getRange("C10:AQ55")
+
+let ovr = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Overview")
+let month_current_ovr = ovr.getRange("C2").getValue()
 
 // sets trigger to call methods automatically on a regular basis
 
@@ -14,27 +16,26 @@ function scriptSetup(){
 }
 
 function createStartupFunction(){
-  const ss = SpreadsheetApp.getActive();
   ScriptApp.newTrigger("avail")
-    .forSpreadsheet(ss)
-    .onEdit()
-    .create();
+    .timeBased()
+    .everyMinutes(15)
+    .create()
 
   ScriptApp.newTrigger("sort")
     .timeBased()
-    .atHour(1)
+    .atHour(4)
     .everyDays(1)
     .create()
 }
 
 // name of item, position in the availability table, cell of quantity in the inventory sheet
 let dict = {
-  "Chair" : [1, "G5"],
-  "Dishes" : [2, "G13"],
-  "Table 6ft" : [3, "G8"],
-  "Chair Kids" : [4, "G6"],
-  "Table 4ft" : [5, "G7"],
-  "Table ONE" : [6, "G9"]
+  "Chair" : [1, "H5"],
+  "Dishes" : [2, "H12"],
+  "Table 6ft" : [3, "H8"],
+  "Chair Kids" : [4, "H6"],
+  "Table 4ft" : [5, "H7"],
+  "Table ONE" : [6, "H9"]
 }
 
 
@@ -124,16 +125,19 @@ function availablityCalc(month, item_name, av_item_index, inv_quantity) {
 
 // calls the availibility calculators for the items on the dict (and some simple loading field + a "refreshed on" time stamp)
 function avail(){
+  let mon_av = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(month_current_av)
+  var range_mon_av = mon_av.getRange("C10:AQ55")
+
   let dict_counter = 1
   let dict_len = Object.keys(dict).length
 
   // cache range_mon values into a 2D-Array
-  arr_mon = range_mon.getValues()
+  arr_mon = range_mon_av.getValues()
   // cache av_range values into a 2D-Array
   arr_av = av_range.getValues()
 
   for (let key in dict){
-    availablityCalc(month_current, key, dict[key][0], dict[key][1])
+    availablityCalc(month_current_av, key, dict[key][0], dict[key][1])
     dict_counter++
   }
   av_range.setValues(arr_av)
@@ -145,7 +149,7 @@ let number_of_columns = 41
 let range_sorted_ids = "B6:B47" // on overview page
 
 function sort(){
-  let ovr = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Overview")
+  let mon = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(month_current_ovr)
 
   let sorted_bookings = []
   let id_sorted = ovr.getRange(range_sorted_ids).getValues() // takes the ID's from sorted list on overview page to know the order
@@ -159,7 +163,6 @@ function sort(){
 
   // states if any column has been moved
   let moved = false
-
   // counts number of sorted columns
   let index_counter = 1
 
@@ -190,11 +193,50 @@ function sort(){
 
   // inserting correct formulas for statistic since they got messed up when moving columns
   if(moved){
-    ovr.getRange("D2").getCell(1,1).setValue("=SUM('"+ month_current +"'!C18:AQ18)")
-    ovr.getRange("F2").getCell(1,1).setValue("=SUMIF('"+ month_current +"'!C9:AQ9, \"Delivery\", '"+ month_current +"'!C18:AQ18)")
-    ovr.getRange("H2").getCell(1,1).setValue("=SUMIF('"+ month_current +"'!C9:AQ9, \"Pick Up\", '"+ month_current +"'!C18:AQ18)")
-    ovr.getRange("D3").getCell(1,1).setValue("=SUM('"+ month_current +"'!C20:BJ20)")
-    ovr.getRange("B6").getCell(1,1).setValue("=sort(TRANSPOSE('"+ month_current +"'!C4:AQ15), TRANSPOSE('"+ month_current +"'!C10:AQ10), TRUE)")
-    console.log("sorting done!")
+    refreshOverview()
   }
+}
+
+function refreshOverview(){
+  ovr.getRange("D2").getCell(1,1).setValue("=SUM('"+ month_current_ovr +"'!C18:AQ18)")
+  ovr.getRange("F2").getCell(1,1).setValue("=SUMIF('"+ month_current_ovr +"'!C9:AQ9, \"Delivery\", '"+ month_current_ovr +"'!C18:AQ18)")
+  ovr.getRange("H2").getCell(1,1).setValue("=SUMIF('"+ month_current_ovr +"'!C9:AQ9, \"Pick Up\", '"+ month_current_ovr +"'!C18:AQ18)")
+  ovr.getRange("D3").getCell(1,1).setValue("=SUM('"+ month_current_ovr +"'!C20:BJ20)")
+  ovr.getRange("B6").getCell(1,1).setValue("=sort(TRANSPOSE('"+ month_current_ovr +"'!C4:AQ15), TRANSPOSE('"+ month_current_ovr +"'!C10:AQ10), TRUE)")
+  console.log("sorting done!")
+}
+
+function createMonthSheet(month_nr, year){
+  nr_to_month = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+}
+
+  var sheetToDuplicate = ss.getSheetByName("template");
+  var monthSheet = sheetToDuplicate.copyTo(ss);
+  month = nr_to_month[month_nr]
+  monthSheet.setName(month + " " + year);
+
+  var rangeToReplace = monthSheet.getRange("C2:BJ2");
+  var valuesToReplace = rangeToReplace.getValues();
+  for (var i = 0; i < valuesToReplace[0].length; i++) {
+    valuesToReplace[0][i] = valuesToReplace[0][i].replace("MM", month_nr);
+  }
+  rangeToReplace.setValues(valuesToReplace);
+
+  monthSheet.getRange("A1").setValue(month);  // Replace 'Monat' with 'April'
+}
+
+function create(){
+  createMonthSheet('05', '23')  // creates a sheet for May 2023
 }
